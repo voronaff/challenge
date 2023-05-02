@@ -1,10 +1,13 @@
-from flask import Flask
+from flask import Flask, jsonify
 
 app = Flask(__name__)
 
+
 @app.route('/')
-def hello():
-    raise Exception('Something wrong in microservice C')
+def response():
+    return jsonify(
+        ms_c=["Intentional", "Error", "500"],
+    ),500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5002)
+    app.run(host='0.0.0.0',port='5002')

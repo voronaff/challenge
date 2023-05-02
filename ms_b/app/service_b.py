@@ -1,10 +1,13 @@
-from flask import Flask
+from flask import Flask, jsonify
 
 app = Flask(__name__)
 
+
 @app.route('/')
-def hello():
-    return 'Hello microservice B!'
+def response():
+    return jsonify(
+        ms_b=["I'm", "alive"],
+    )
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    app.run(host='0.0.0.0',port='5001')

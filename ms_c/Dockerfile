@@ -1,6 +1,6 @@
 FROM python:3.10-alpine
 
-COPY app1 /app
+COPY app /app
 WORKDIR /app
 
 RUN pip install -r requirements.txt

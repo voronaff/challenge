@@ -1,0 +1,36 @@
+name: Challenging CI
+on:
+  push:
+
+jobs:
+  micro:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      issues: read
+      checks: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: build images
+        run: |
+          make build -j3
+
+      - name: run tests
+        run: |
+          make test -j3
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: success() || failure()
+        with:
+          files: |
+            test-reports/*.xml
+
+      - name: push images
+        if: success() || failure() 
+        run: |
+          make push -j3
